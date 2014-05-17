@@ -1,4 +1,4 @@
-# mcjsonapi
+# mcjsonapi [![Build Status](https://api.travis-ci.org/elomatreb/mcjsonapi.svg?branch=dev)](https://travis-ci.org/elomatreb/mcjsonapi)
 
 This rubygem provides an easy way to interact with a [Minecraft](https://minecraft.net) ([bukkit](https://bukkit.org/)) server running the [JSONAPI plugin](https://github.com/alecgorge/jsonapi). It supports the new API v2.
 
