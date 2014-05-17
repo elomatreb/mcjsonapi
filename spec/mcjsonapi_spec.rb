@@ -28,6 +28,12 @@ describe "Mcjsonapi:" do
     end
 
     describe "with valid information" do
+      let(:api) { Mcjsonapi::API.new username: username, password: password }
+
+      it "should use correct username" do
+        expect(api.username).to eq username
+      end
+
       describe "with no host given" do
         let(:api) { Mcjsonapi::API.new username: username, password: password }
 

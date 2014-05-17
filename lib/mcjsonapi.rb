@@ -2,7 +2,7 @@ require "mcjsonapi/version"
 
 module Mcjsonapi
   class API
-    attr_reader :host, :port
+    attr_reader :host, :port, :username
 
     def initialize(options = {})
       # Validation
@@ -13,6 +13,9 @@ module Mcjsonapi
       # Assigning variables
       @host = options[:host] || "localhost"
       @port = options[:port] || 20059
+
+      @username = options[:username]
+      @password = options[:password]
     end
   end
 end
