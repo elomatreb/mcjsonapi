@@ -6,6 +6,12 @@ This rubygem provides an easy way to interact with a [Minecraft](https://minecra
 
 `// yet to come`
 
+### How to install
+
+Add this line to your application's `Gemfile`:
+    
+    gem 'mcjsonapi', '~> 0.0.1'
+
 ## License
 
 This project is available under the permissive [MIT license](http://opensource.org/licenses/MIT). (See [LICENSE.md](LICENSE.md) for details).
