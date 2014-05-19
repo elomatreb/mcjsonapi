@@ -59,11 +59,27 @@ describe "Mcjsonapi:" do
       end
 
       describe "with port given" do
-        let(:api) { Mcjsonapi::API.new port: 25565, username: username, password: password }
+        let(:api) { Mcjsonapi::API.new port: 31337, username: username, password: password }
 
         it "should use the given port" do
-          expect(api.port).to eq 25565
+          expect(api.port).to eq 31337
         end
+      end
+    end
+  end
+
+  describe "key generation" do
+    let(:api) { Mcjsonapi::API.new username: username, password: password }
+
+    describe "with no method parameter" do
+      it "should raise an error" do
+        expect { api.generate_key }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe "with correct parameters" do
+      it "should return a valid key" do
+        expect(api.generate_key "server.version").to eq Digest::SHA256.hexdigest(username+"server.version"+password)
       end
     end
   end

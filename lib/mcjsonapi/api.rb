@@ -15,5 +15,9 @@ module Mcjsonapi
       @username = options[:username]
       @password = options[:password]
     end
+
+    def generate_key(method)
+      Digest::SHA256.hexdigest @username+method+@password
+    end
   end
 end
