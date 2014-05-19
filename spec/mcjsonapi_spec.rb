@@ -10,19 +10,19 @@ describe "Mcjsonapi:" do
     describe "with invalid information" do
       describe "without any information" do
         it "should raise an error" do
-          expect { Mcjsonapi::API.new }.to raise_error("Username and password are needed.")
+          expect { Mcjsonapi::API.new }.to raise_error(ArgumentError, "Username and password are needed.")
         end
       end
 
       describe "without password" do
         it "should raise an error" do
-          expect { Mcjsonapi::API.new username: username }.to raise_error("Password is needed.")
+          expect { Mcjsonapi::API.new username: username }.to raise_error(ArgumentError, "Password is needed.")
         end
       end
 
       describe "without username" do
         it "should raise an error" do
-          expect { Mcjsonapi::API.new password: password }.to raise_error("Username is needed.")
+          expect { Mcjsonapi::API.new password: password }.to raise_error(ArgumentError, "Username is needed.")
         end
       end
     end

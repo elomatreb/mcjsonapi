@@ -4,9 +4,9 @@ module Mcjsonapi
 
     def initialize(options = {})
       # Validation
-      raise "Username and password are needed." if options[:username].nil? && options[:password].nil?
-      raise "Password is needed." if options[:password].nil?
-      raise "Username is needed." if options[:username].nil?
+      raise ArgumentError, "Username and password are needed." if options[:username].nil? && options[:password].nil?
+      raise ArgumentError, "Password is needed." if options[:password].nil?
+      raise ArgumentError, "Username is needed." if options[:username].nil?
 
       # Assigning variables
       @host = options[:host] || "localhost"
