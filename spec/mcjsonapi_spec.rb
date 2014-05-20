@@ -10,19 +10,19 @@ describe "Mcjsonapi:" do
     describe "with invalid information" do
       describe "without any information" do
         it "should raise an error" do
-          expect { Mcjsonapi::API.new }.to raise_error(ArgumentError, "Username and password are needed.")
+          expect { Mcjsonapi::API.new }.to raise_error(ArgumentError)
         end
       end
 
       describe "without password" do
         it "should raise an error" do
-          expect { Mcjsonapi::API.new username: username }.to raise_error(ArgumentError, "Password is needed.")
+          expect { Mcjsonapi::API.new username: username }.to raise_error(ArgumentError)
         end
       end
 
       describe "without username" do
         it "should raise an error" do
-          expect { Mcjsonapi::API.new password: password }.to raise_error(ArgumentError, "Username is needed.")
+          expect { Mcjsonapi::API.new password: password }.to raise_error(ArgumentError)
         end
       end
     end
@@ -80,6 +80,28 @@ describe "Mcjsonapi:" do
     describe "with correct parameters" do
       it "should return a valid key" do
         expect(api.generate_key "server.version").to eq Digest::SHA256.hexdigest(username+"server.version"+password)
+      end
+    end
+  end
+
+  describe "call method" do
+    let(:api) { Mcjsonapi::API.new username: username, password: password }
+
+    describe "with no parameters" do
+      it "should raise an error" do
+        expect { api.call }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe "with invalid parameters" do
+      it "should raise an error" do
+        expect { api.call "" }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe "with empty parameters" do
+      it "should raise an error" do
+        expect { api.call {} }.to raise_error(ArgumentError)
       end
     end
   end
