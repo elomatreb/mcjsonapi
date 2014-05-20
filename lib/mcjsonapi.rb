@@ -4,7 +4,7 @@
 end
 
 # Require gems
-["digest/sha2", "net/http", "json"].each do |g|
+["digest/sha2", "net/http", "json", "cgi"].each do |g|
   require g
 end
 

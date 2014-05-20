@@ -34,7 +34,14 @@ module Mcjsonapi
       else
         raise ArgumentError, "A method must be given."
       end
+
+      options[:username] = @username
+      options[:key]      = generate_key(options[:name])
+
+      data = JSON.generate options
+      data = CGI::escape data
+      url  = "http://#{@host}:#{@port}/api/2/call?json=#{data}"
     end
-    
+
   end
 end
