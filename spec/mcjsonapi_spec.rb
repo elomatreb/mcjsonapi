@@ -3,7 +3,7 @@ require "spec_helper"
 describe "Mcjsonapi:" do
   # You need a local Minecraft server running on localhost:20059 with these
   # JSONAPI credentials to run the tests.
-  let(:username) { "testuser" }
+  let(:username) { "username" }
   let(:password) { "password" }
 
   describe "new instance" do
@@ -93,15 +93,21 @@ describe "Mcjsonapi:" do
       end
     end
 
-    describe "with invalid parameters" do
+    describe "with empty (string) parameters" do
       it "should raise an error" do
         expect { api.call "" }.to raise_error(ArgumentError)
       end
     end
 
-    describe "with empty parameters" do
+    describe "with empty (hash) parameters" do
       it "should raise an error" do
         expect { api.call {} }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe "with single string parameter" do
+      it "should return valid data" do
+        expect(api.call "server.version").to eq '[{"result":"success","is_success":true,"source":"server.version","success":"git-Bukkit-1.6.4-R2.0-b2918jnks (MC: 1.6.4)"}]'
       end
     end
   end
