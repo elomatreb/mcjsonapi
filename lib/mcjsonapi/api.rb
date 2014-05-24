@@ -17,20 +17,17 @@ module Mcjsonapi
     end
 
     def call(options = {})
-      if options.is_a? String
-        
-        unless options.empty?
-          options = { name: options }
-        else
+
+      if options.is_a? String   
+        if options.empty?
           raise ArgumentError, "A method must be given."
+        else
+          options = { name: options }
         end
-
       elsif options.is_a? Hash
-
         if options.empty? || options[:method].nil?
           raise ArgumentError, "A method must be given."
         end
-
       else
         raise ArgumentError, "A method must be given."
       end
@@ -38,9 +35,10 @@ module Mcjsonapi
       options[:username] = @username
       options[:key]      = generate_key(options[:name])
 
-      data = JSON.generate options
-      data = CGI::escape data
-      url  = "http://#{@host}:#{@port}/api/2/call?json=#{data}"
+      data = CGI::escape( JSON.generate options )
+      url  = URI("http://#{@host}:#{@port}/api/2/call?json=#{data}")
+
+      Net::HTTP.get url
     end
 
   end
