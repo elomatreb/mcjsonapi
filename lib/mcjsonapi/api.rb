@@ -38,8 +38,18 @@ module Mcjsonapi
       data = CGI::escape( JSON.generate options )
       url  = URI("http://#{@host}:#{@port}/api/2/call?json=#{data}")
 
-      Net::HTTP.get url
+      response = JSON.parse Net::HTTP.get(url)
+      response = response[0]
+
+      if response["is_success"]
+        puts "success!"
+        return response["success"]
+      else
+        raise APIError, "#{response["error"]["message"]}, Code #{response["error"]["code"]}"
+      end
     end
 
   end
+
+  class APIError < StandardError; end
 end
