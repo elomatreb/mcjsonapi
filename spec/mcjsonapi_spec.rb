@@ -106,8 +106,16 @@ describe "Mcjsonapi:" do
     end
 
     describe "with single string parameter" do
-      it "should return valid data" do
-        expect(api.call "server.version").to eq '[{"result":"success","is_success":true,"source":"server.version","success":"git-Bukkit-1.6.4-R2.0-b2918jnks (MC: 1.6.4)"}]'
+      describe "with no existing method" do
+        it "should raise an error" do
+          expect { api.call "server.ersion" }.to raise_error(Mcjsonapi::APIError)
+        end
+      end
+
+      describe "with a existing method" do
+        it "should return valid data" do
+          expect(api.call "server.version").to eq 'git-Bukkit-1.6.4-R2.0-b2918jnks (MC: 1.6.4)'
+        end
       end
     end
   end

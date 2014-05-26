@@ -42,7 +42,6 @@ module Mcjsonapi
       response = response[0]
 
       if response["is_success"]
-        puts "success!"
         return response["success"]
       else
         raise APIError, "#{response["error"]["message"]}, Code #{response["error"]["code"]}"
