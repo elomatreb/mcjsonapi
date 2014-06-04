@@ -12,6 +12,9 @@ RSpec.configure do |config|
     stub_request(:any, 'http://localhost:20059/api/2/call?json=%7B%22name%22:%22server.ersion%22,%22username%22:%22username%22,%22key%22:%2280e215e432f1712033c05f19d1aa25809f076f33e109459d74c3638f2054f9dd%22%7D').
       to_return(status: 200, body: '[{"result":"error","is_success":false,"error":{"message":"The method \'server.ersion\' does not exist!","code":7},"source":"server.ersion"}]', headers: {})
 
+    stub_request(:any, 'http://localhost:20059/api/2/call?json=%7B%22name%22:%22players.online%22,%22username%22:%22username%22,%22key%22:%22a512138b40aa90e62577a05b22e0a8ef1e3642603766c5f175a91b491143ec0a%22%7D').
+      to_return(status: 500, body: "")
+
     stub_request(:any, 'http://localhost:20059/api/2/call?json=%7B%22name%22:%22players.online.limit%22,%22username%22:%22username%22,%22key%22:%229e13123716483673352415a76bc891649148043111cbffa3374ee192d26e8e34%22%7D').
       to_timeout
   end

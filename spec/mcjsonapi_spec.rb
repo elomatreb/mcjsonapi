@@ -124,5 +124,11 @@ describe "Mcjsonapi:" do
         expect { api.call "players.online.limit" }.to raise_error(Timeout::Error)
       end
     end
+
+    describe "with HTTP error from API" do
+      it "should raise an exception" do
+        expect { api.call "players.online" }.to raise_error(Mcjsonapi::APIError)
+      end
+    end
   end
 end

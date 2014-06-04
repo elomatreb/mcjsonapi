@@ -35,16 +35,18 @@ module Mcjsonapi
       options[:username] = @username
       options[:key]      = generate_key(options[:name])
 
-      data = CGI::escape( JSON.generate options )
-      url  = URI("http://#{@host}:#{@port}/api/2/call?json=#{data}")
+      data = CGI::escape JSON.generate(options)
+      
+      response = Net::HTTP.get_response URI("http://#{@host}:#{@port}/api/2/call?json=#{data}")
 
-      response = JSON.parse Net::HTTP.get(url)
-      response = response[0]
+      raise APIError, "The API responded with an HTTP error." unless response.is_a? Net::HTTPOK
 
-      if response["is_success"]
-        return response["success"]
+      response_data = JSON.parse(response.body)[0]
+
+      if response_data["is_success"]
+        return response_data["success"]
       else
-        raise APIError, "#{response["error"]["message"]}, Code #{response["error"]["code"]}"
+        raise APIError, "The API raised an error: #{response_data["error"]["message"]} (Code #{response_data["error"]["code"]})"
       end
     end
 
