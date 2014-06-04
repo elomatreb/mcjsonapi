@@ -18,7 +18,7 @@ module Mcjsonapi
 
     def call(options = {})
 
-      if options.is_a? String   
+      if options.is_a? String
         if options.empty?
           raise ArgumentError, "A method must be given."
         else
