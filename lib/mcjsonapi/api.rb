@@ -25,7 +25,7 @@ module Mcjsonapi
           options = { name: options }
         end
       elsif options.is_a? Hash
-        if options.empty? || options[:method].nil?
+        if options.empty? || options[:name].nil?
           raise ArgumentError, "A method must be given."
         end
       else
