@@ -84,7 +84,7 @@ describe "Mcjsonapi:" do
     end
   end
 
-  describe "call method" do
+  describe "request" do
     let(:api) { Mcjsonapi::API.new username: username, password: password }
 
     describe "with no parameters" do
@@ -116,6 +116,12 @@ describe "Mcjsonapi:" do
         it "should return valid data" do
           expect(api.call "server.version").to eq 'git-Bukkit-1.6.4-R2.0-b2918jnks (MC: 1.6.4)'
         end
+      end
+    end
+
+    describe "with host timeout" do
+      it "should raise an exception" do
+        expect { api.call "players.online.limit" }.to raise_error(Timeout::Error)
       end
     end
   end
