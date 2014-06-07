@@ -1,10 +1,9 @@
 require "spec_helper"
 
 describe "Mcjsonapi:" do
-  # You need a local Minecraft server running on localhost:20059 with these
-  # JSONAPI credentials to run the tests.
   let(:username) { "username" }
   let(:password) { "password" }
+  let(:version)  { 'git-Bukkit-1.6.4-R2.0-b2918jnks (MC: 1.6.4)' }
 
   describe "new instance" do
     describe "with invalid information" do
@@ -112,9 +111,37 @@ describe "Mcjsonapi:" do
         end
       end
 
-      describe "with a existing method" do
+      describe "with an existing method" do
         it "should return valid data" do
-          expect(api.call "server.version").to eq 'git-Bukkit-1.6.4-R2.0-b2918jnks (MC: 1.6.4)'
+          expect(api.call "server.version").to eq version
+        end
+      end
+    end
+
+    describe "with hash parameters" do
+      describe "with no existing method" do
+        it "should raise an error" do
+          expect { api.call name: "server.ersion" }.to raise_error(Mcjsonapi::APIError)
+        end
+      end
+
+      describe "with an existing method" do
+        describe "without arguments" do
+          it "should return valid data" do
+            expect(api.call name: "server.version").to eq version
+          end
+        end
+
+        describe "with invalid arguments" do
+          it "should raise an error" do
+            expect { api.call name: "chat.broadcast", arguments: [] }.to raise_error(Mcjsonapi::APIError)
+          end
+        end
+
+        describe "with valid arguments" do
+          it "should return valid data" do
+            expect(api.call name: "chat.broadcast", arguments: ["Hello World"]).to eq 1
+          end
         end
       end
     end

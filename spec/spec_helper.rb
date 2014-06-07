@@ -17,5 +17,11 @@ RSpec.configure do |config|
 
     stub_request(:any, 'http://localhost:20059/api/2/call?json=%7B%22name%22:%22players.online.limit%22,%22username%22:%22username%22,%22key%22:%229e13123716483673352415a76bc891649148043111cbffa3374ee192d26e8e34%22%7D').
       to_timeout
+
+    stub_request(:any, 'http://localhost:20059/api/2/call?json=%7B%22name%22:%22chat.broadcast%22,%22arguments%22:%5B%5D,%22username%22:%22username%22,%22key%22:%2209cb37400a6951f6f69ac62c736c62e8646292a100585bf4412a836b4c507407%22%7D').
+      to_return(status: 200, body: '[{"result":"error","is_success":false,"error":{"message":"Caught exception: java.lang.Exception: Incorrect number of args: gave 0 ([]), expected 1 for method chat.broadcast\n\tat com.alecgorge.minecraft.jsonapi.dynamic.Caller.call(Caller.java:64)\n\tat com.alecgorge.minecraft.jsonapi.api.v2.JSONResponse.serveAPICall(JSONResponse.java:130)\n\tat com.alecgorge.minecraft.jsonapi.api.v2.JSONResponse.getJSONObject(JSONResponse.java:73)\n\tat com.alecgorge.minecraft.jsonapi.api.v2.APIv2Handler.call(APIv2Handler.java:83)\n\tat com.alecgorge.minecraft.jsonapi.api.v2.APIv2Handler.serve(APIv2Handler.java:51)\n\tat com.alecgorge.minecraft.jsonapi.JSONServer.serve(JSONServer.java:257)\n\tat com.alecgorge.minecraft.jsonapi.NanoHTTPD$HTTPSession.run(NanoHTTPD.java:553)\n\tat java.lang.Thread.run(Thread.java:744)\n","code":6},"source":"chat.broadcast"}]') # This is ugly. Like, really ugly.
+
+    stub_request(:any, 'http://localhost:20059/api/2/call?json=%7B%22name%22:%22chat.broadcast%22,%22arguments%22:%5B%22Hello%20World%22%5D,%22username%22:%22username%22,%22key%22:%2209cb37400a6951f6f69ac62c736c62e8646292a100585bf4412a836b4c507407%22%7D').
+      to_return(status: 200, body: '[{"result":"success","is_success":true,"source":"chat.broadcast","success":1}]')
   end
 end
