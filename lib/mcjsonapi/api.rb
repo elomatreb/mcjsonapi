@@ -35,7 +35,7 @@ module Mcjsonapi
       options[:username] = @username
       options[:key]      = generate_key(options[:name])
 
-      data = CGI::escape JSON.generate(options)
+      data = URI::encode JSON.generate(options)
       
       response = Net::HTTP.get_response URI("http://#{@host}:#{@port}/api/2/call?json=#{data}")
 
