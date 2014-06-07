@@ -21,7 +21,8 @@ $ gem install mcjsonapi
 require "mcjsonapi"
 
 # Create a new API instance
-api = Mcjsonapi::API.new username: "username", password: "password", host: "localhost", port: 20059 # localhost:20059 is assumed as default host
+api = Mcjsonapi::API.new username: "username", password: "password", host: "localhost", port: 20059
+# localhost:20059 is assumed as default host/port
 
 # Call a single method
 api.call "server.version"
